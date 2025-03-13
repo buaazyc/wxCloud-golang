@@ -16,13 +16,6 @@ type Rsp struct {
 // IndexHandler 计数器接口
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	body, err := r.GetBody()
-	if err != nil {
-		log.ErrorContextf(ctx, "get body err: %v", err)
-		return
-	}
-	log.DebugContextf(ctx, "req: %v", body)
-
 	rsp := &Rsp{
 		Code:     0,
 		ErrorMsg: "success",
