@@ -41,10 +41,11 @@ func IndexHandler(rsp http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Printf("req :%+v\n", req)
+	fmt.Println(req.FromUserName)
 	res := &Rsp{
 		Code:     200,
 		ErrorMsg: "succ",
-		Data:     "test",
+		Data:     fmt.Sprintf("msg from :%v", req.FromUserName),
 	}
 	msg, err := json.Marshal(res)
 	if err != nil {
