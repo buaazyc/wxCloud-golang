@@ -1,12 +1,9 @@
 package service
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"git.code.oa.com/trpc-go/trpc-go/log"
 )
 
 // Rsp 返回结构
@@ -18,8 +15,7 @@ type Rsp struct {
 
 // IndexHandler 入口函数
 func IndexHandler(rsp http.ResponseWriter, req *http.Request) {
-	ctx := context.Background()
-	log.DebugContextf(ctx, "req: %+v", req)
+	fmt.Printf("req: %+v", req)
 	res := &Rsp{
 		Code:     200,
 		ErrorMsg: "succ",
