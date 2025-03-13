@@ -1,12 +1,8 @@
-package service
+package model
 
-import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-)
+import "strings"
 
-// Req 请求
+// CallBackMsg 请求
 // 消息体样例：
 //
 //	{
@@ -17,7 +13,7 @@ import (
 //		"Content": "回复文本", // 消息内容
 //		"MsgId": 23637352235060880 // 唯一消息ID，可能发送多个重复消息，需要注意用此ID去重
 //	  }
-type Req struct {
+type CallBackMsg struct {
 	ToUserName   string `json:"ToUserName"`   // 小程序/公众号的原始ID
 	FromUserName string `json:"FromUserName"` // 该小程序/公众号的用户身份openid
 	CreateTime   int    `json:"CreateTime"`   // 消息时间(秒级时间戳)
@@ -26,32 +22,11 @@ type Req struct {
 	MsgId        int    `json:"MsgId"`        // 唯一消息ID
 }
 
-// Rsp 返回结构
-type Rsp struct {
-	Code     int         `json:"code"`               // 返回码
-	ErrorMsg string      `json:"errorMsg,omitempty"` // 错误信息
-	Data     interface{} `json:"data"`               // 返回数据
-}
-
-// IndexHandler 入口函数
-func IndexHandler(rsp http.ResponseWriter, r *http.Request) {
-	req := &Req{}
-	if err := json.NewDecoder(r.Body).Decode(req); err != nil {
-		fmt.Printf("json decode failed with %+v", err)
-		return
+// GetCmd 获取命令
+func (msg *CallBackMsg) GetCmd() string {
+	if msg.MsgType != "text" || msg.Content == "" {
+		return ""
 	}
-	fmt.Printf("req :%+v\n", req)
-	fmt.Println(req.FromUserName)
-	res := &Rsp{
-		Code:     200,
-		ErrorMsg: "succ",
-		Data:     fmt.Sprintf("msg from :%v", req.FromUserName),
-	}
-	msg, err := json.Marshal(res)
-	if err != nil {
-		fmt.Fprint(rsp, "内部错误")
-		return
-	}
-	rsp.Header().Set("content-type", "application/json")
-	rsp.Write(msg)
+	tokens := strings.Split(msg.Content, " ")
+	return tokens[0]
 }
