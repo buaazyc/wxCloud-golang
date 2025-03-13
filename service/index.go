@@ -6,9 +6,16 @@ import (
 	"net/http"
 )
 
+// Rsp 返回结构
+type Rsp struct {
+	Code     int         `json:"code"`
+	ErrorMsg string      `json:"errorMsg,omitempty"`
+	Data     interface{} `json:"data"`
+}
+
 // IndexHandler 入口函数
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	res := &JsonResult{
+	res := &Rsp{
 		Code:     200,
 		ErrorMsg: "succ",
 		Data:     "test",
