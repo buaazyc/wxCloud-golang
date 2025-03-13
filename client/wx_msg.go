@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const wxMsgUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send"
+const wxMsgUrl = "http://api.weixin.qq.com/cgi-bin/message/custom/send"
 
 type WxMsgReq struct {
 	ToUser  string    `json:"touser"`
