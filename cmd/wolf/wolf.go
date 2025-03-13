@@ -1,7 +1,7 @@
 package wolf
 
 import (
-	"log"
+	"wxcloudrun-golang/client"
 	"wxcloudrun-golang/handler"
 	"wxcloudrun-golang/model"
 )
@@ -14,6 +14,8 @@ type Handler struct {
 }
 
 func (h *Handler) Handle(msg *model.CallBackMsg) error {
-	log.Printf("wolf Handle msg: %+v", msg)
+	if err := client.SendWxMsg(msg.FromUserName, "hello world"); err != nil {
+		return err
+	}
 	return nil
 }
