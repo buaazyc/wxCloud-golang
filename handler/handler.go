@@ -7,7 +7,7 @@ import (
 
 // Handler 回调处理接口
 type Handler interface {
-	Handle(msg *model.CallBackMsg) error // 处理回调
+	Handle(msg *model.CallBackMsg) (*model.MsgRsp, error) // 处理回调
 }
 
 var (

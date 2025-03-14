@@ -1,6 +1,9 @@
 package model
 
-import "strings"
+import (
+	"strings"
+	"wxcloudrun-golang/constant"
+)
 
 // CallBackMsg 请求
 // 消息体样例：
@@ -24,9 +27,18 @@ type CallBackMsg struct {
 
 // GetCmd 获取命令
 func (msg *CallBackMsg) GetCmd() string {
-	if msg.MsgType != "text" || msg.Content == "" {
+	if msg.MsgType != constant.Text || msg.Content == "" {
 		return ""
 	}
 	tokens := strings.Split(msg.Content, " ")
 	return tokens[0]
+}
+
+// MsgRsp 被动回复内容时的结构体
+type MsgRsp struct {
+	ToUserName   string `json:"ToUserName"`   // 用户OPENID
+	FromUserName string `json:"FromUserName"` // 公众号/小程序原始ID
+	CreateTime   int    `json:"CreateTime"`   // 消息时间(秒级时间戳)
+	MsgType      string `json:"MsgType"`      // 消息类型
+	Content      string `json:"Content"`      // 消息内容
 }

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"wxcloudrun-golang/constant"
 )
 
 const wxMsgUrl = "http://api.weixin.qq.com/cgi-bin/message/custom/send"
@@ -24,10 +25,12 @@ type WxMsgRsp struct {
 	ErrMsg  string `json:"errmsg"`
 }
 
+// SendWxMsg 发送微信消息，需要微信号认证后才可以发送
+// 参考：https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Explanation_of_interface_privileges.html
 func SendWxMsg(toUser, content string) error {
 	jsonReq, err := json.Marshal(&WxMsgReq{
 		ToUser:  toUser,
-		MsgType: "text",
+		MsgType: constant.Text,
 		Text: WxMsgText{
 			Content: content,
 		},

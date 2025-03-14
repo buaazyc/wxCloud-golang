@@ -1,8 +1,7 @@
 package wolf
 
 import (
-	"fmt"
-	"wxcloudrun-golang/client"
+	"wxcloudrun-golang/constant"
 	"wxcloudrun-golang/handler"
 	"wxcloudrun-golang/model"
 )
@@ -14,9 +13,13 @@ func Init() {
 type Handler struct {
 }
 
-func (h *Handler) Handle(msg *model.CallBackMsg) error {
-	if err := client.SendWxMsg(msg.FromUserName, "hello world"); err != nil {
-		return fmt.Errorf("send wx msg failed: %v", err)
-	}
-	return nil
+func (h *Handler) Handle(msg *model.CallBackMsg) (*model.MsgRsp, error) {
+	sendMsg := "hello world"
+	return &model.MsgRsp{
+		ToUserName:   msg.FromUserName,
+		FromUserName: msg.ToUserName,
+		CreateTime:   msg.CreateTime,
+		MsgType:      constant.Text,
+		Content:      sendMsg,
+	}, nil
 }
