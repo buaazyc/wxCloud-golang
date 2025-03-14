@@ -13,10 +13,10 @@ import (
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	req := &model.CallBackMsg{}
 	rsp := &model.MsgRsp{Code: constant.Success, ErrorMsg: "ok", MsgType: constant.Text}
-	w.Header().Set("content-type", "application/json")
 	defer func() {
 		fmt.Printf("req :%+v rsp :%+v\n", req, rsp)
 		msg, _ := json.Marshal(rsp)
+		w.Header().Set("content-type", "application/json")
 		w.Write(msg)
 	}()
 
