@@ -1,19 +1,18 @@
-package help
+package err
 
 import (
+	"fmt"
 	"wxcloudrun-golang/handler"
 	"wxcloudrun-golang/model"
 )
 
 func Init() {
-	handler.RegisterHandler("help", &Handler{})
+	handler.RegisterHandler("err", &Handler{})
 }
 
 type Handler struct {
 }
 
 func (h *Handler) Handle(msg *model.CallBackMsg, rsp *model.MsgRsp) error {
-	sendMsg := "hello world!"
-	rsp.Content = sendMsg
-	return nil
+	return fmt.Errorf("err")
 }

@@ -40,6 +40,10 @@ func (msg *CallBackMsg) GetCmd() string {
 
 // MsgRsp 被动回复内容时的结构体
 type MsgRsp struct {
+	Code     int         `json:"code"`               // 返回码
+	ErrorMsg string      `json:"errorMsg,omitempty"` // 错误信息
+	Data     interface{} `json:"data"`               // 返回数据
+
 	ToUserName   string `json:"ToUserName"`   // 用户OPENID
 	FromUserName string `json:"FromUserName"` // 公众号/小程序原始ID
 	CreateTime   int    `json:"CreateTime"`   // 消息时间(秒级时间戳)
