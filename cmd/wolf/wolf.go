@@ -14,7 +14,7 @@ type Handler struct {
 }
 
 func (h *Handler) Handle(msg *model.CallBackMsg) (*model.MsgRsp, error) {
-	sendMsg := "hello world"
+	sendMsg := "hello world!"
 	return &model.MsgRsp{
 		ToUserName:   msg.FromUserName,
 		FromUserName: msg.ToUserName,
