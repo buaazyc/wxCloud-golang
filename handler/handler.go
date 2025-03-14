@@ -24,3 +24,8 @@ func RegisterHandler(name string, handler Handler) {
 func GetHandler(name string) Handler {
 	return handlers[name]
 }
+
+func IsRegister(cmd string) bool {
+	_, ok := handlers[cmd]
+	return ok
+}

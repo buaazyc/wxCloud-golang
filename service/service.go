@@ -38,7 +38,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 	// 处理请求
 	c := req.GetCmd()
-	if c == "" {
+	if c == "" || !handler.IsRegister(c) {
 		c = "help"
 	}
 	h := handler.GetHandler(c)

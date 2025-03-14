@@ -23,6 +23,8 @@ type CallBackMsg struct {
 	MsgType      string `json:"MsgType"`      // 消息类型
 	Content      string `json:"Content"`      // 消息内容
 	MsgId        int    `json:"MsgId"`        // 唯一消息ID
+
+	tokens []string // 分隔消息内容
 }
 
 // GetCmd 获取命令
@@ -30,8 +32,10 @@ func (msg *CallBackMsg) GetCmd() string {
 	if msg.MsgType != constant.Text || msg.Content == "" {
 		return ""
 	}
-	tokens := strings.Split(msg.Content, " ")
-	return tokens[0]
+	if len(msg.tokens) == 0 {
+		msg.tokens = strings.Split(msg.Content, " ")
+	}
+	return msg.tokens[0]
 }
 
 // MsgRsp 被动回复内容时的结构体
