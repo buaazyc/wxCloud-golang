@@ -22,8 +22,8 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	rsp := &Rsp{Code: constant.Success, ErrorMsg: "ok"}
 	w.Header().Set("content-type", "application/json")
 	defer func() {
-		fmt.Printf("req :%+v rsp :%+v\n", req, rsp)
 		if rsp.Code != constant.Success {
+			fmt.Printf("req :%+v rsp :%+v\n", req, rsp)
 			msg, _ := json.Marshal(rsp)
 			w.Write(msg)
 		}
@@ -53,6 +53,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		rsp.ErrorMsg = fmt.Sprintf("handler failed with %+v", err)
 		return
 	}
+	// 空消息，则无需回复
+	if msgRsp == nil {
+		return
+	}
+	// 被动回复
+	fmt.Printf("req :%+v rsp :%+v\n", req, msgRsp)
 	msg, _ := json.Marshal(msgRsp)
 	w.Write(msg)
 }
